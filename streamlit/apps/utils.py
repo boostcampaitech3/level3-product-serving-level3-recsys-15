@@ -9,6 +9,17 @@ from requests_toolbelt.multipart.encoder import MultipartEncoder
 
 #     return r
 
+def change_music_page():
+    if 'search' in st.session_state:
+        del st.session_state['search']
+    st.session_state['book'] = ""
+
+def change_search_page():
+    st.session_state['search'] = ""
+
+
+
+
 def search_box():
     '''
     검색창 생성
@@ -16,10 +27,11 @@ def search_box():
     '''
     st.title('kokoapage')
     st.header('책과 음악을 연결하다.')
-    search_book = st.text_input('어떤 책을 찾으시는 건가요?')
-    if search_book:
-        st.session_state['search'] = search_book
-    return search_box
+    search_book = st.text_input('어떤 책을 찾으시는 건가요?', on_change=change_search_page)
+    # if search_book:
+    #     st.session_state['search'] = search_book
+        
+    return search_book
 
 def list_main(num:int=3, genre:str='none'):
     '''
@@ -42,8 +54,9 @@ def list_main(num:int=3, genre:str='none'):
     
     for i in range(num):
         if globals()['{}_col{}_button'.format(genre, i)]:
-            st.session_state['book'] = "1"
-
+            if 'search' in st.session_state:
+                del st.session_state['search']
+            st.session_state['book'] = i
 
     return
 
@@ -60,10 +73,12 @@ def list_search(num: int):
                     st.subheader('book{}'.format(i))
                     st.text('작가')
                     st.text('책소개')
-                    globals()['{}_col_{}_button'.format(i, j)] = st.button('{}_노래추천_{}'.format(i, j))
-    for i in range(num):
-        if globals()['{}_col_{}_button'.format(i, 1)]:
-            st.session_state['book'] = "2"
+                    globals()['{}_col_{}_button'.format(i, j)] = st.button('{}_노래추천_{}'.format(i, j), on_click=change_music_page)
+    # for i in range(num):
+    #     if globals()['{}_col_{}_button'.format(i, 1)]:
+    #         del st.session_state['search']
+    #         st.session_state['book'] = "2"
+            
         
     return
 

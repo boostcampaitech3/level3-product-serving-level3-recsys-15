@@ -16,7 +16,7 @@ def app():
 
     # if st.session_state['search']:
     #     results = utils.index_search(es, INDEX, st.session_state['search'], '', 0, PAGE_SIZE)
-
+    utils.search_box()
     utils.list_search(5)
 
     st.text(st.session_state)

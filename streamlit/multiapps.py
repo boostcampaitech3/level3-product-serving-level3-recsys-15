@@ -37,11 +37,24 @@ class MultiApp:
         })
     
     def run(self):
-  
-        app = st.selectbox(
-            "Navigation",
-            self.apps,
-            format_func=lambda app: app['title']
-        )
+        '''
+        * session_state *
+        page : main, search, book
+        search : 검색어
+        book : 책
+        '''
+        st.session_state['page'] = 0
 
-        app['function']()
+        if "search" in st.session_state:
+            st.session_state['page'] = 1
+        if "book" in st.session_state:
+            st.session_state['page'] = 2
+  
+        # app = st.selectbox(
+        #     "Navigation",
+        #     self.apps,
+        #     format_func=lambda app: app['title']
+        # )
+        # app['function']()
+
+        self.apps[st.session_state['page']]['function']()
