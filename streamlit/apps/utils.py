@@ -50,13 +50,13 @@ def list_main(num:int=3, genre:str='none'):
         with globals()['{}_col{}'.format(genre, i)]:
             st.subheader("A cat")
             st.image("https://static.streamlit.io/examples/cat.jpg")
-            globals()['{}_col{}_button'.format(genre, i)] = st.button('{}_이 책 보기{}'.format(genre, i))
+            globals()['{}_col{}_button'.format(genre, i)] = st.button('{}_이 책 보기{}'.format(genre, i), on_click=change_music_page)
     
-    for i in range(num):
-        if globals()['{}_col{}_button'.format(genre, i)]:
-            if 'search' in st.session_state:
-                del st.session_state['search']
-            st.session_state['book'] = i
+    # for i in range(num):
+    #     if globals()['{}_col{}_button'.format(genre, i)]:
+    #         if 'search' in st.session_state:
+    #             del st.session_state['search']
+    #         st.session_state['book'] = i
 
     return
 
