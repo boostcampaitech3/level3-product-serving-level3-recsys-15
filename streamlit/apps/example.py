@@ -20,7 +20,7 @@ def app():
     # render timeline
     timeline(data, height=800)
 
-    st.button('홈으로', on_click=utils.delete_all_session)
+    st.button('다른 책', on_click=utils.delete_all_session)
     
 
     st.text(st.session_state)
