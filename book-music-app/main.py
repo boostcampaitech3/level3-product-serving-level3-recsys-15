@@ -6,7 +6,7 @@ from urllib import parse
 ################## main #####################
 
 app = FastAPI()
-DB_PATH = '' ########### TODO: DB가 저장된 주소를 넣어주세요 #########
+DB_PATH = "/opt/ml/final/book_music.db" ########### TODO: DB가 저장된 주소를 넣어주세요 #########
 DB = BookMusicRecDB(DB_PATH)
 
 

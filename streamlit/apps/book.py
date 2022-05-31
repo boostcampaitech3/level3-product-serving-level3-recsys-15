@@ -17,6 +17,6 @@ def app():
     # if st.session_state['search']:
     #     results = utils.index_search(es, INDEX, st.session_state['search'], '', 0, PAGE_SIZE)
     utils.search_box()
-    utils.list_search(5)
-
+    res = utils.search_by_elasticsearch('http://localhost:9200', 'contacts', st.session_state['search'])
+    utils.list_search(res)
     st.text(st.session_state)
