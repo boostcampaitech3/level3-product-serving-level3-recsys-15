@@ -93,18 +93,25 @@ def list_main(num:int=3, genre:str='none', server_url:str = "http://0.0.0.0:3000
     st.header(genre)
 
     a = st.columns(num)
+    b = st.columns(num)
+    c = st.columns(num)
 
     for i in range(num):
         globals()['{}_col{}'.format(genre, i)] = a[i]
+        globals()['{}_col_second{}'.format(genre, i)] = b[i]
+        globals()['{}_col_third{}'.format(genre, i)] = c[i]
 
     for i in range(num):
         with globals()['{}_col{}'.format(genre, i)]:
+            # st.markdown(f"#### {books_list[i]['title']}")
             st.subheader(books_list[i]['title'])
-            st.image(books_list[i]['img_url'])
+        with globals()['{}_col_second{}'.format(genre, i)]:
+            st.image(books_list[i]['img_url'],width=200)
             id_value = books_list[i]['id']
             title_value = books_list[i]['title']
             img_value = books_list[i]['img_url']
             author_value = books_list[i]['author']
+        with globals()['{}_col_third{}'.format(genre, i)]:
             globals()['{}_col{}_button'.format(genre, i)] = st.button(label = '이 책 보기',key=id_value, on_click=change_music_page, args=(id_value, title_value, img_value, author_value))
 
     return
@@ -121,7 +128,7 @@ def list_search(search_input:list):
             globals()['{}_col{}'.format(i, j)] = a[j]
             with globals()['{}_col{}'.format(i, j)]:
                 if j == 0:
-                    st.image(search_input[i]['_source']['image'])
+                    st.image(search_input[i]['_source']['image'],width=200)
                 else:
                     st.subheader(search_input[i]['_source']['title'])
                     st.text(search_input[i]['_source']['author'])
@@ -129,7 +136,7 @@ def list_search(search_input:list):
                     title_value = search_input[i]['_source']['title']
                     img_value = search_input[i]['_source']['image']
                     author_value = search_input[i]['_source']['author']
-                    globals()['{}_col_{}_button'.format(i, j)] = st.button(label = '이 책 보기',key=id_value, on_click=change_music_page, args=(id_value, title_value, img_value, author_value))
+                    globals()['{}_col_{}_button'.format(i, j)] = st.button(label = '       이 책 보기       ',key=id_value, on_click=change_music_page, args=(id_value, title_value, img_value, author_value))
          
     return
 
