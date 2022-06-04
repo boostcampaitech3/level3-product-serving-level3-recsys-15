@@ -1,13 +1,8 @@
-# 할 일
-# 0. 칼럼 정리 -> 통일성을 맞출 필요가 있다
-# 1. 존재하지 않는 title 또는 column일 경우 data 처리하기
-
 import sqlite3
 
 class BookMusicRecDB:
 
-    def __init__(self, file_path):
-        # 왜 같은 Thread이면 안될까? -> 비정상적으로 끊겼을 때 DB를 보호하기 위해서겠지?
+    def __init__(self, file_path:str):
         self.con = sqlite3.connect(file_path,check_same_thread=False)
 
     def exit_db(self):
@@ -19,7 +14,7 @@ class BookMusicRecDB:
         return cur.fetchall()
 
     def get_rec_item_by_book_id(self,book_id):
-        db_query = f'SELECT book_id, top_10 FROM recommendation_title WHERE book_id={book_id}'
+        db_query = f'SELECT book_id, song_id FROM recommendation WHERE book_id={book_id}'
         cur = self.con.execute(db_query)
         return cur.fetchall()
 
