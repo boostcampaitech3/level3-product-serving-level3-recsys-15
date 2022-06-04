@@ -90,20 +90,21 @@ def list_main(num:int=3, genre:str='none', server_url:str = "http://0.0.0.0:3000
     r = request_book(server_url, genre)
     books_list = r.json()['books'][:num]
 
+    length = num if len(books_list) >= num else len(books_list)
+
     st.header(genre)
 
-    a = st.columns(num)
-    b = st.columns(num)
-    c = st.columns(num)
+    a = st.columns(length)
+    b = st.columns(length)
+    c = st.columns(length)
 
-    for i in range(num):
+    for i in range(length):
         globals()['{}_col{}'.format(genre, i)] = a[i]
         globals()['{}_col_second{}'.format(genre, i)] = b[i]
         globals()['{}_col_third{}'.format(genre, i)] = c[i]
 
-    for i in range(num):
+    for i in range(length):
         with globals()['{}_col{}'.format(genre, i)]:
-            # st.markdown(f"#### {books_list[i]['title']}")
             st.subheader(books_list[i]['title'])
         with globals()['{}_col_second{}'.format(genre, i)]:
             st.image(books_list[i]['img_url'],width=200)
